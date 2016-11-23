@@ -1,45 +1,40 @@
-<?php session_start(); ?>
+<?php
+  require_once('sql_funcs.php');
+  session_start()
+;?>
 <html>
-    <head> 
-        <title>Patient reception</title> 
+    <head>
+        <title>Patient reception</title>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" href="css/style.css" >
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
     </head>
     <body>
-        <h3>Schedule Appointment - choose doctor</h3>
-        <p> Speciality choosen: <?php echo($_REQUEST['specialty']); ?></p> 
+      <div class="center_ct">
+        <div class ="center">
+            <h3>Schedule Appointment - choose doctor</h3>
+            <p> Speciality choosen: <?php echo($_POST['specialty']); ?></p>
             <?php
-                $_SESSION['specialty'] = $_REQUEST['specialty'];
-                $host = "db.ist.utl.pt";
-                $user = "ist179138";
-                $pass = "unho4435";
-                $dsn = "mysql:host=$host;dbname=$user";
-                try
-                {
-                    $connection = new PDO($dsn, $user, $pass);
-                }
-                catch(PDOException $exception)
-                {
-                    echo("<p>Error: ");
-                    echo($exception->getMessage());
-                    echo("</p>");
-                    exit();
-                }
-                $specialty = $_REQUEST['specialty'];
-                $sql = "SELECT * FROM doctor WHERE specialty = '$specialty' ORDER BY name";
-                $result = $connection->query($sql);
-                if ($result == FALSE)
-                {
-                    $info = $connection->errorInfo();
-                    echo("<p>Error: {$info[2]}</p>");
-                    exit();
-                }
-                $nrows = $result->rowCount();
-                if ($nrows == 0)
-                {
-                    echo("<p>There is no registed doctors fo the specialty:$patient_name.</p>");
-                }
+                $_SESSION['specialty'] = $_POST['specialty'];
+
+                $connection = null;
+                new_connection($connection);
+
+                $sql = "SELECT * FROM doctor WHERE specialty = :specialty ORDER BY name";
+                $result =  sql_secure_query($connection, $sql, Array( ":specialty" =>  $_SESSION['specialty'] ) );
+
+                $connection = null;
+                
+                if ($result->rowCount() == 0)
+                    echo("<p>There is no registered doctors fo the specialty:  {$_SESSION['specialty'] }.</p>");
+
+
+
                 else
                 {
-                    echo("<table border=\"1\">");
+                    echo("<table class=\"table table-striped table-bordered\">");
                     echo("<tr><td>name</td></tr>");
                     foreach($result as $row)
                     {
@@ -50,12 +45,14 @@
                         echo($row['doctor_id']);
                         echo("&name=");
                         echo($row['name']);
-                        echo("\">Schedule for this doctor</a>"); 
+                        echo("\">Schedule for this doctor</a>");
                         echo("</td></tr>");
                     }
                     echo("</table>");
                 }
-                $connection = null;
+                  $connection = null;
             ?>
+              </div>
+            </div>
     </body>
 </html>

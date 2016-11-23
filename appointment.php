@@ -1,6 +1,6 @@
 <html>
-    <head> 
-        <title>Patient reception</title> 
+    <head>
+        <title>Patient reception</title>
     </head>
     <body>
         <h3>Appointment table</h3>

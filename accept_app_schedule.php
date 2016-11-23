@@ -1,64 +1,54 @@
-<?php session_start();
-$appointment_day = date("l",$_REQUEST['appointment_date']);
+<?php
+  require_once('sql_funcs.php');
+  session_start();
+  $appointment_date = $_POST['appointment_date'];
+  $appointment_day = date("l",strtotime($_POST['appointment_date']));
 ?>
 <html>
+  <head>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css" >
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+  </head>
  <body>
- <h3>Schedule Appointment - verify appointment </h3>
- <p> Speciality choosen: <?php echo($_SESSION['specialty']); ?></p>
- <p> Doctor choosen: <?php echo($_SESSION['doctor_name']); ?></p> 
- <p> Date chossen/Day of the week:<?php echo $_REQUEST['appointment_date'] . " " . $appointment_day; ?></p>
-     <?php
-     if (((strcmp($appointment_day, "Saturday") == 0) or (strcmp($appointment_day, "Sunday") == 0)))
-                {
-                    echo("<p>Invalid date for appointment, the hospital doesnt support appointments at weekends");
-                    echo("<a href=\"choosedate.php\">Choose another date</a>"); 
-                    
-                }
-                else
-                {
-                    
-                    $host = "db.ist.utl.pt";
-                    $user = "ist179138";
-                    $pass = "unho4435";
-                    $dsn = "mysql:host=$host;dbname=$user";
-                    try
-                    {
-                        $connection = new PDO($dsn, $user, $pass);
-                    }
-                    catch(PDOException $exception)
-                    {
-                        echo("<p>Error: ");
-                        echo($exception->getMessage());
-                        echo("</p>");
-                        exit();
-                    }
-                    $specialty = $_REQUEST['specialty'];
-                    $doctor_name = $_REQUEST['doctor_name'];
-                    $sql = "SELECT doctor_id FROM doctor WHERE name = '$_doctor_name' AND specialty = '$specialty'";
-                    $result = $connection->query($sql);
-                    if ($result == FALSE)
-                    {
-                        $info = $connection->errorInfo();
-                        echo("<p>Error: {$info[2]}</p>");
-                        exit();
-                    }
-                    $row = $result->fetch();
-                    $doctor_id = $row['doctor_id'];
-                    
-                    $patient_id = $_REQUEST['patient_id'];
-                    $appointment_date = $_REQUEST['appointment_date'];
-                    $stmt = $connection->prepare("INSERT INTO appointment VALUES (:patient_id, :doctor_id, :appointment_date )");
-                    
-                    $stmt->bindParam(':patient_id', $patient_id);
-                    $stmt->bindParam(':doctor_id', $doctor_id);
-                    $stmt->bindParam(':appointment_date', $appointment_date);
-                    
-                    $stmt->execute();
-                    
-                    //falta fazer o check a ver se nao houve erros na introduçao dos dados
-                    echo("<p> Appointment inserted in database</p>");
-                    $connection = null;
-                }
-     ?>
+   <div class="center_ct" style="text-align:center">
+     <div class ="center" >
+       <h3>Schedule Appointment - verify appointment </h3>
+       <p> Speciality:&nbsp<b> <?php echo($_SESSION['specialty']); ?></b></p>
+       <p> Doctor:&nbsp <b><?php echo($_SESSION['doctor_name']); ?></b></p>
+       <p> Date: &nbsp <b><?php echo $_POST['appointment_date'] . " " . $_SESSION['appointment_day']; ?></b></p>
+           <?php
+           if (((strcmp(  $_SESSION['appointment_day'], "Saturday") == 0) or (strcmp(  $_SESSION['appointment_day'], "Sunday") == 0)))
+                      {
+                          echo("<p>Invalid date for appointment, the hospital does not take appointments at weekends");
+                          echo("<p><a href=\"choosedate0.php\">Choose another date</a></p>");
+
+                      }
+                      else
+                      {
+
+                          $_doctor_name = $_SESSION['doctor_name'];
+
+                          $doctor_id = $_SESSION['doctor_id'];
+
+                          $patient_id = $_SESSION['patient_id'];
+
+                          $connection = null;
+                          new_connection($connection);
+                          $sql = "INSERT INTO appointment VALUES (:patient_id, :doctor_id, :appointment_date, 'consultorio2')";
+
+                          $result = sql_secure_query($connection, $sql, Array(  ":patient_id"      => $patient_id ,
+                                                                                ":doctor_id"       => $doctor_id ,
+                                                                                ":appointment_date"=> $appointment_date ) );
+                          $connection = NULL;
+
+                          echo("<p> Appointment inserted in database</p>");
+
+                      }
+           ?>
+         </div>
+       </div>
  </body>
 </html>

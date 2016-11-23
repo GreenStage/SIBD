@@ -1,4 +1,3 @@
-<?php session_start(); ?>
 <html>
     <head> <title>Patient registration</title>
     </head>
