@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <html>
     <head>
         <title>Patient reception</title>
@@ -20,7 +21,8 @@
                     echo("</p>");
                     exit();
                 }
-                $sql = "SELECT * FROM appointment";
+                $patient_id = $_SESSION['patient_id'];
+                $sql = "SELECT doctor_id, date, office FROM appointment WHERE patient_id = $patient_id ";
                 $result = $connection->query($sql);
                 if ($result == FALSE)
                 {
@@ -36,12 +38,10 @@
                 else
                 {
                     echo("<table border=\"1\">");
-                    echo("<tr><td>patient_id</td><td>doctor_id</td><td>date</td><td>office</td></tr>");
+                    echo("<tr><td>doctor_id</td><td>date</td><td>office</td></tr>");
                     foreach($result as $row)
                     {
                         echo("<tr><td>");
-                        echo($row['patient_id']);
-                        echo("</td><td>");
                         echo($row['doctor_id']);
                         echo("</td><td>");
                         echo($row['date']);
@@ -55,4 +55,5 @@
             ?>
     </body>
     <p><a href="patient_recp.php">Accept new client</a></p>
+    <p><a href="newappointment.php">Schedule another appointment</a></p>
 </html>

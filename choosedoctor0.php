@@ -12,47 +12,51 @@
 
     </head>
     <body>
-      <div class="center_ct">
-        <div class ="center">
-            <h3>Schedule Appointment - choose doctor</h3>
-            <p> Speciality choosen: <?php echo($_POST['specialty']); ?></p>
-            <?php
-                $_SESSION['specialty'] = $_POST['specialty'];
-
-                $connection = null;
-                new_connection($connection);
-
-                $sql = "SELECT * FROM doctor WHERE specialty = :specialty ORDER BY name";
-                $result =  sql_secure_query($connection, $sql, Array( ":specialty" =>  $_SESSION['specialty'] ) );
-
-                $connection = null;
-                
-                if ($result->rowCount() == 0)
-                    echo("<p>There is no registered doctors fo the specialty:  {$_SESSION['specialty'] }.</p>");
-
-
-
-                else
-                {
-                    echo("<table class=\"table table-striped table-bordered\">");
-                    echo("<tr><td>name</td></tr>");
-                    foreach($result as $row)
-                    {
-                        echo("<tr><td>");
-                        echo($row['name']);
-                        echo("</td><td>");
-                        echo("<a href=\"choosedate0.php?doctor_id=");
-                        echo($row['doctor_id']);
-                        echo("&name=");
-                        echo($row['name']);
-                        echo("\">Schedule for this doctor</a>");
-                        echo("</td></tr>");
+        <h2>Actual Patient</h2>
+        <p>Name:<?php echo($_SESSION['patient_name']); ?></p>
+        <p>Patien_id:<?php echo($_SESSION['patient_id']); ?></p>
+        <div class="center_ct">
+            <div class ="center">
+                <h3>Schedule Appointment - choose doctor</h3>
+                <p> Speciality choosen: <?php echo($_POST['specialty']); ?></p>
+                <?php
+                    if($_POST['specialty'] != NULL){
+                    $_SESSION['specialty'] = $_POST['specialty'];
                     }
-                    echo("</table>");
-                }
-                  $connection = null;
-            ?>
-              </div>
+                    $connection = null;
+                    new_connection($connection);
+
+                    $sql = "SELECT * FROM doctor WHERE specialty = :specialty ORDER BY name";
+                    $result =  sql_secure_query($connection, $sql, Array( ":specialty" =>  $_SESSION['specialty'] ) );
+
+                    $connection = null;
+
+                    if ($result->rowCount() == 0)
+                        echo("<p>There is no registered doctors fo the specialty:  {$_SESSION['specialty'] }.</p>");
+
+
+
+                    else
+                    {
+                        echo("<table class=\"table table-striped table-bordered\">");
+                        echo("<tr><td>name</td></tr>");
+                        foreach($result as $row)
+                        {
+                            echo("<tr><td>");
+                            echo($row['name']);
+                            echo("</td><td>");
+                            echo("<a href=\"choosedate0.php?doctor_id=");
+                            echo($row['doctor_id']);
+                            echo("&name=");
+                            echo($row['name']);
+                            echo("\">Schedule for this doctor</a>");
+                            echo("</td></tr>");
+                        }
+                        echo("</table>");
+                    }
+                      $connection = null;
+                ?>
+                  </div>
             </div>
     </body>
 </html>

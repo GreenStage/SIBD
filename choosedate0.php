@@ -1,7 +1,9 @@
 <?php
   session_start();
   $_SESSION['doctor_name'] = $_GET['name'];
+    if($_GET['doctor_id'] !=NULL){
   $_SESSION['doctor_id'] = $_GET['doctor_id'];
+    }
 ?>
 
 <html>
@@ -13,6 +15,9 @@
 
 </head>
  <body>
+    <h2>Actual Patient</h2>
+    <p>Name:<?php echo($_SESSION['patient_name']); ?></p>
+    <p>Patien_id:<?php echo($_SESSION['patient_id']); ?></p> 
    <div class="center_ct">
      <div class ="center">
        <h3 >Schedule Appointment - choose appointment date </h3>

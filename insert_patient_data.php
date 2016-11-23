@@ -9,20 +9,14 @@
     </head>
     <body>
         <h3>Patient Data</h3>
-            <?php
-                foreach ($_POST as $name => $value)
-                {
-                    $_SESSION[$name] = $value;
-                }
-            ?>
-            <ul>
-                <?php
-                    foreach ($_SESSION as $name => $value)
-                    {
-                        echo("<li>$name = $value</li>");
-                    }
-                    $connection = null;
-                ?>
-            </ul>
+        <form action="accept_app_schedule.php" method="post">
+            <div style="float:left;padding-top:4px;">Birthday: <input type="date" name="patient_birthday"/></div>
+            <div style="float:left;padding-top:4px;">Address: <input type="text" name="patient_address"/></div>
+            <div style="float:left;padding-top:4px;">Appointment date: <input type="date" name="patient_birthday"/></div>
+            <button  style="float:left;margin-left:4px;" type="submit" value="Submit"  class ="btn btn-primary">
+              <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+              Submit
+            </button>
+        </form>
     </body>
 </html>

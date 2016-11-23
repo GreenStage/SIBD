@@ -1,6 +1,7 @@
 <?php
 require_once('sql_funcs.php');
 session_start();
+$_SESSION['patient_name'] = $_POST['patient_name'];
 ?>
 <html>
     <head>
@@ -11,13 +12,12 @@ session_start();
 
     </head>
     <body>
+        <h2>Actual Patient</h2>
+        <p>Name:<?php echo($_SESSION['patient_name']); ?></p>
       <div class="center_ct">
         <div class ="center">
         <h3>Name received</h3>
             <?php
-
-                $_SESSION['patient_name'] = $_POST['patient_name'];
-                
                 $connection = null;
                 new_connection($connection);
 
@@ -54,6 +54,7 @@ session_start();
                 }
 
             ?>
+            <p><a href="insert_patient_data.php">Regist new patient</a></p>
         </div>
       </div>
 

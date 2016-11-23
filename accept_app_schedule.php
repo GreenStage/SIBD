@@ -13,14 +13,17 @@
 
   </head>
  <body>
+     <h2>Actual Patient</h2>
+        <p>Name:<?php echo($_SESSION['patient_name']); ?></p>
+        <p>Patien_id:<?php echo($_SESSION['patient_id']); ?></p>
    <div class="center_ct" style="text-align:center">
      <div class ="center" >
        <h3>Schedule Appointment - verify appointment </h3>
        <p> Speciality:&nbsp<b> <?php echo($_SESSION['specialty']); ?></b></p>
        <p> Doctor:&nbsp <b><?php echo($_SESSION['doctor_name']); ?></b></p>
-       <p> Date: &nbsp <b><?php echo $_POST['appointment_date'] . " " . $_SESSION['appointment_day']; ?></b></p>
+       <p> Date: &nbsp <b><?php echo $_POST['appointment_date'] . " " . $appointment_day; ?></b></p>
            <?php
-           if (((strcmp(  $_SESSION['appointment_day'], "Saturday") == 0) or (strcmp(  $_SESSION['appointment_day'], "Sunday") == 0)))
+           if (((strcmp(  $appointment_day, "Saturday") == 0) or (strcmp(  $appointment_day, "Sunday") == 0)))
                       {
                           echo("<p>Invalid date for appointment, the hospital does not take appointments at weekends");
                           echo("<p><a href=\"choosedate0.php\">Choose another date</a></p>");
@@ -44,7 +47,9 @@
                                                                                 ":appointment_date"=> $appointment_date ) );
                           $connection = NULL;
 
-                          echo("<p> Appointment inserted in database</p>");
+                          echo("<p> Appointment inserted in database <a href=\"patient_appointments.php\">Check appointments for this patient</a></p>");
+                          echo("<p><a href=\"newappointment.php\">Schedule another appointment</a></p>");
+                          echo("<p><a href=\"patient_recp.php\">Accept another patient</a></p>");
 
                       }
            ?>
