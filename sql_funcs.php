@@ -6,8 +6,8 @@ function new_connection(&$connection)
   $user = "ist179138";
   $pass = "unho4435";
   $dsn = "mysql:host=$host;dbname=$user";
-  try
-  {
+
+  try{
       $connection = new PDO($dsn, $user, $pass);
   }
   catch(PDOException $exception)

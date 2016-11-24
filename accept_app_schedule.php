@@ -1,7 +1,6 @@
 <?php
-  require_once('sql_funcs.php');
   session_start();
-  $appointment_date = $_POST['appointment_date'];
+  $_SESSION['appointment_date'] = $_POST['appointment_date'];
   $appointment_day = date("l",strtotime($_POST['appointment_date']));
 ?>
 <html>
@@ -13,43 +12,27 @@
 
   </head>
  <body>
-     <h2>Actual Patient</h2>
-        <p>Name:<?php echo($_SESSION['patient_name']); ?></p>
-        <p>Patien_id:<?php echo($_SESSION['patient_id']); ?></p>
    <div class="center_ct" style="text-align:center">
      <div class ="center" >
-       <h3>Schedule Appointment - verify appointment </h3>
+       <p><h2 style="float:left">Selected Patient: &nbsp</h2>
+       <h3 style="color: #366fd7"><?php echo($_SESSION['patient_name']); ?></h3></p>
+       Patient ID: <?php echo($_SESSION['patient_id']); ?>
+       <h3 style="min-width:415px">Please Verify Your Appointment </h3>
        <p> Speciality:&nbsp<b> <?php echo($_SESSION['specialty']); ?></b></p>
        <p> Doctor:&nbsp <b><?php echo($_SESSION['doctor_name']); ?></b></p>
-       <p> Date: &nbsp <b><?php echo $_POST['appointment_date'] . " " . $appointment_day; ?></b></p>
+       <p> Date: &nbsp <b><?php echo $_SESSION['appointment_date'] . " " . $appointment_day; ?></b></p>
            <?php
            if (((strcmp(  $appointment_day, "Saturday") == 0) or (strcmp(  $appointment_day, "Sunday") == 0)))
                       {
                           echo("<p>Invalid date for appointment, the hospital does not take appointments at weekends");
-                          echo("<p><a href=\"choosedate0.php\">Choose another date</a></p>");
+                          echo("<p><a href=\"choosedate0.php?doctor_id=".$_SESSION['doctor_id']."&name=".$_SESSION['doctor_name']." \">Choose another date</a></p>");
 
-                      }
+                      }  
                       else
                       {
 
-                          $_doctor_name = $_SESSION['doctor_name'];
-
-                          $doctor_id = $_SESSION['doctor_id'];
-
-                          $patient_id = $_SESSION['patient_id'];
-
-                          $connection = null;
-                          new_connection($connection);
-                          $sql = "INSERT INTO appointment VALUES (:patient_id, :doctor_id, :appointment_date, 'consultorio2')";
-
-                          $result = sql_secure_query($connection, $sql, Array(  ":patient_id"      => $patient_id ,
-                                                                                ":doctor_id"       => $doctor_id ,
-                                                                                ":appointment_date"=> $appointment_date ) );
-                          $connection = NULL;
-
-                          echo("<p> Appointment inserted in database <a href=\"patient_appointments.php\">Check appointments for this patient</a></p>");
-                          echo("<p><a href=\"newappointment.php\">Schedule another appointment</a></p>");
-                          echo("<p><a href=\"patient_recp.php\">Accept another patient</a></p>");
+                        echo("<a href=\"insert_appointment.php\" class=\" btn btn-default\">Confirm</a>");
+                        echo("<a href=\"cancel.php\" class=\" btn btn-danger\">Cancel</a>");
 
                       }
            ?>

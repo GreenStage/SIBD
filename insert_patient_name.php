@@ -1,6 +1,8 @@
 <?php
 require_once('sql_funcs.php');
 session_start();
+session_destroy();
+session_start();
 $_SESSION['patient_name'] = $_POST['patient_name'];
 ?>
 <html>
@@ -12,11 +14,9 @@ $_SESSION['patient_name'] = $_POST['patient_name'];
 
     </head>
     <body>
-        <h2>Actual Patient</h2>
-        <p>Name:<?php echo($_SESSION['patient_name']); ?></p>
+
       <div class="center_ct">
         <div class ="center">
-        <h3>Name received</h3>
             <?php
                 $connection = null;
                 new_connection($connection);
@@ -26,12 +26,20 @@ $_SESSION['patient_name'] = $_POST['patient_name'];
                 $connection = null;
 
                 $nrows = $result->rowCount();
+
                 if ($nrows == 0)
                 {
-                    echo("<p>There is no registed patient with the name:  {$_SESSION['patient_name']} .</p>");
+                    echo("<p class=\"alert alert-warning\">There is no registed patient with the name:  {$_SESSION['patient_name']} .</p>");
                 }
                 else
                 {
+                  echo ("<h3>Select Patient</h3>");
+
+                  if( $nrows == 1)
+                    echo ("<p class=\"alert alert-info\"> 1 match found for name <b>" .$_SESSION['patient_name'] . "</b></p>");
+                  else
+                    echo ("<p class=\"alert alert-info\"> ".$nrows." matches found for name <b>" .$_SESSION['patient_name'] . "</b></p>");
+
                     echo("<table class=\"table table-striped table-bordered\"> ");
                     echo("<tr><td>patient_id</td><td>name</td><td>birthday</td><td>address</td></tr>");
                     foreach($result as $row)
@@ -52,9 +60,9 @@ $_SESSION['patient_name'] = $_POST['patient_name'];
                     }
                     echo("</table>");
                 }
-
+                echo("<p><a href=\"insert_patient_data.php?name_holder=". $_SESSION['patient_name']."\">Register new patient</a></p>");
             ?>
-            <p><a href="insert_patient_data.php">Regist new patient</a></p>
+
         </div>
       </div>
 

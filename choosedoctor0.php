@@ -12,16 +12,18 @@
 
     </head>
     <body>
-        <h2>Actual Patient</h2>
-        <p>Name:<?php echo($_SESSION['patient_name']); ?></p>
-        <p>Patien_id:<?php echo($_SESSION['patient_id']); ?></p>
+
         <div class="center_ct">
             <div class ="center">
-                <h3>Schedule Appointment - choose doctor</h3>
-                <p> Speciality choosen: <?php echo($_POST['specialty']); ?></p>
+
+                <p><h2 style="float:left">Selected Patient: &nbsp</h2>
+                <h3 style="color: #366fd7"><?php echo($_SESSION['patient_name']); ?></h3></p>
+                Patient ID: <?php echo($_SESSION['patient_id']); ?>
+                <h3 style="clear:both">Schedule Appointment - Choose Your Doctor</h3>
+                <p> Speciality: <b><?php echo($_POST['specialty']); ?></b></p>
                 <?php
                     if($_POST['specialty'] != NULL){
-                    $_SESSION['specialty'] = $_POST['specialty'];
+                      $_SESSION['specialty'] = $_POST['specialty'];
                     }
                     $connection = null;
                     new_connection($connection);

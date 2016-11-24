@@ -1,9 +1,10 @@
 <?php
   require_once('sql_funcs.php');
   session_start();
-  if($_GET['patient_id'] != NULL){
+
+  if(isset($_GET['patient_id']))
       $_SESSION['patient_id'] = $_GET['patient_id'];
-  }
+
 ?>
 <head>
   <title>Schedule Appointment</title>
@@ -14,18 +15,17 @@
 </head>
 <html>
  <body>
-    <h2>Actual Patient</h2>
-    <p>Name:<?php echo($_SESSION['patient_name']); ?></p>
-    <p>Patien_id:<?php echo($_SESSION['patient_id']); ?></p>
    <div class="center_ct">
-     <div class ="center">
-       <h3>Schedule Appointment - choose doctor specialty</h3>
+     <div class ="center" >
+
+       <h2 style="float:left">Selected Patient: &nbsp</h2>
+       <h3 style="margin-top:23px;color: #366fd7"><?php echo($_SESSION['patient_name']); ?></h3>
+       Patient ID: <?php echo($_SESSION['patient_id']); ?>
+       <h3 style="clear:both">Schedule Appointment - choose doctor specialty</h3>
        <form style="margin-top:10px" action="choosedoctor0.php" method="post">
            <select class="form-control" name="specialty">
                <?php
-                    if($_GET['patient_id'] != NULL){
-                        $_SESSION['patient_id'] = $_GET['patient_id'];
-                    }
+
                   $connection = null;
                   new_connection($connection);
 

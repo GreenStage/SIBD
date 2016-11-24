@@ -1,9 +1,10 @@
 <?php
   session_start();
+  
   $_SESSION['doctor_name'] = $_GET['name'];
-    if($_GET['doctor_id'] !=NULL){
+
   $_SESSION['doctor_id'] = $_GET['doctor_id'];
-    }
+
 ?>
 
 <html>
@@ -15,12 +16,13 @@
 
 </head>
  <body>
-    <h2>Actual Patient</h2>
-    <p>Name:<?php echo($_SESSION['patient_name']); ?></p>
-    <p>Patien_id:<?php echo($_SESSION['patient_id']); ?></p> 
+
    <div class="center_ct">
      <div class ="center">
-       <h3 >Schedule Appointment - choose appointment date </h3>
+       <p><h2 style="float:left">Selected Patient: &nbsp</h2>
+       <h3 style="color: #366fd7"><?php echo($_SESSION['patient_name']); ?></h3></p>
+       Patient ID: <?php echo($_SESSION['patient_id']); ?>
+       <h3 style="clear:both">Schedule Your Appointment&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</h3>
        <form style="padding-top:2px" action="accept_app_schedule.php" method="post">
        <p> <div style="float:left"><b>Speciality choosen:</b>
          <?php

@@ -1,4 +1,12 @@
-<?php session_start() ?>
+<?php
+  session_start();
+  session_destroy(); /*Prevent previous session leftovers*/
+  if(isset($_GET['name_holder']))
+    $name_holder = $_GET['name_holder'];
+
+  else
+    $name_holder = "";
+?>
 <html>
     <head>
         <title>Patient registration</title>
@@ -8,15 +16,21 @@
 
     </head>
     <body>
-        <h3>Patient Data</h3>
-        <form action="accept_app_schedule.php" method="post">
-            <div style="float:left;padding-top:4px;">Birthday: <input type="date" name="patient_birthday"/></div>
-            <div style="float:left;padding-top:4px;">Address: <input type="text" name="patient_address"/></div>
-            <div style="float:left;padding-top:4px;">Appointment date: <input type="date" name="patient_birthday"/></div>
-            <button  style="float:left;margin-left:4px;" type="submit" value="Submit"  class ="btn btn-primary">
-              <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-              Submit
-            </button>
-        </form>
+      <div class="center_ct">
+        <div class ="center" >
+          <h3>Insert Patient Data</h3>
+          <form action="reg_new_patient.php" method="post">
+
+              <?php echo("<div style=\"float:left;padding-top:6px;\">Name: </div><input value=\" ".$name_holder ."\" class=\"form-control\" type=\"text\" name=\"name\"/>") ?>
+
+              <div style="float:left;padding-top:6px;">Birthday: </div><input class="form-control" type="date" name="birthday"/>
+              <div style="float:left;padding-top:6px;">Address: </div><input class="form-control" type="text" name="address"/>
+              <button  style="float:right;margin-top:8px;" type="submit" value="Submit"  class ="btn btn-primary">
+                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                Submit
+              </button>
+          </form>
+        </div>
+      </div>
     </body>
 </html>

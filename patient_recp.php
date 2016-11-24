@@ -6,10 +6,10 @@
     <body>
 
         <form action="insert_patient_name.php" method="post">
-            <h3>Insert patient name:</h3>
-            <div style="float:left;padding-top:4px;">Name: <input type="text" name="patient_name"/></div>
+            <h3 style="text-align:center">Insert patient name:</h3>
+            <input style="min-width:300px;margin-top:20px" class="form-control" type="text" name="patient_name"/>
 
-            <button  style="float:left;margin-left:4px;" type="submit" value="Submit"  class ="btn btn-primary">
+            <button  style="margin-left:4px;margin-top:10px;margin-left:100px" type="submit" value="Submit"  class ="btn btn-primary">
               <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
               Submit
             </button>
