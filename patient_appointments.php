@@ -20,7 +20,7 @@
             <?php
                 new_connection($connection);
 
-                $sql = "SELECT doctor_id, date, office FROM appointment WHERE patient_id = :patient_id ";
+                $sql = "SELECT name, date, office FROM appointment NATURAL JOIN doctor WHERE patient_id = :patient_id ";
                 $result = sql_secure_query($connection,$sql, Array( ":patient_id" => $_SESSION['patient_id'] ) );
 
                 $connection = null;
@@ -31,11 +31,11 @@
                 else
                 {
                     echo("<table style=\"min-width:415px; margin-top:15px\" class=\"table table-striped table-bordered\">");
-                    echo("<tr><td>doctor_id</td><td>date</td><td>office</td></tr>");
+                    echo("<tr><td>doctor</td><td>date</td><td>office</td></tr>");
                     foreach($result as $row)
                     {
                         echo("<tr><td>");
-                        echo($row['doctor_id']);
+                        echo($row['name']);
                         echo("</td><td>");
                         echo($row['date']);
                         echo("</td><td>");

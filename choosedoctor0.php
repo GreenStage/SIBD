@@ -59,6 +59,7 @@
                     }
                       $connection = null;
                 ?>
+                <a href="cancel.php" class=" btn btn-danger">Cancel</a>
                   </div>
             </div>
     </body>

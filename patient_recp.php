@@ -29,7 +29,6 @@
               Submit
             </button>
         </form>
-
     </body>
     <script>
       $(document).ready(function() {

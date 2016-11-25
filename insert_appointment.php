@@ -14,10 +14,9 @@
 
     new_connection($connection);
     $sql = "INSERT INTO appointment VALUES (:patient_id, :doctor_id, :appointment_date, 'consultorio2')";
-
     $result = sql_secure_query($connection, $sql, Array(  ":patient_id"      => $_SESSION['patient_id'] ,
                                                           ":doctor_id"       => $_SESSION['doctor_id'] ,
-                                                          ":appointment_date"=> $_SESSION['appointment_date'] ) );
+                                                          ":appointment_date" => date('Y-m-d',strtotime($_SESSION['appointment_date'])) ) );
     $connection = NULL;
   ?>
 

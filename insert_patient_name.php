@@ -63,7 +63,7 @@ $_SESSION['patient_name'] = $_POST['patient_name'];
                 }
                 echo("<p><a href=\"insert_patient_data.php?name_holder=". $_SESSION['patient_name']."\">Register new patient</a></p>");
             ?>
-
+            <a href="index.php" class=" btn btn-danger">Cancel</a>
         </div>
       </div>
 

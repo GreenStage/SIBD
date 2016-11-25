@@ -44,6 +44,7 @@
                ?>
            </select>
        <input style="margin-top:5px" type="submit" value="Submit" class ="btn btn-primary"/></p>
+       <a href="index.php" class=" btn btn-danger">Cancel</a>     
        </form>
     </div>
   </div>

@@ -31,7 +31,7 @@
         <div class ="center container"  style="max-width:500px" >
 
           <h3 style="text-align:center">Insert Patient Data</h3>
-          <form id="reg_patient" class="form-horizontal" action="reg_new_patient.php" method="post">
+          <form id="reg_patient" class="form-horizontal" action="accept_reg_and_appschedule.php" method="post">
 
             <div class="form-group" >
               <label class="control-label">Name:</label>
@@ -51,7 +51,27 @@
                 <label class=" control-label">Address:</label>
                 <div> <input id="addr" class="form-control" type="text" name="address"/> </div>
               </div>
-
+              
+              <h3 style="text-align:center">Insert Appointment Data</h3>
+              
+              <div class="form-group">
+                <label class=" control-label">Specialty:</label>
+                <div> <input id="addr" class="form-control" type="text" name="specialty"/> </div>
+              </div>
+              
+              <div class="form-group">
+                <label class=" control-label">Doctor:</label>
+                <div> <input id="addr" class="form-control" type="text" name="doctor_id"/> </div>
+              </div>
+              
+              <div class="form-group">
+                <label class="control-label">Date:</label>
+                <div class=" input-group input-append date"  id="datePicker">
+                  <input type="text" class="form-control" id="appointment_date" name="appointment_date"/>
+                  <span class="input-group-addon" id="sizing-addon2"><span class="glyphicon glyphicon-calendar"></span></span>
+                </div>
+              </div>
+              
               <div class="form-group">
                 <div class="col-xs-5 col-xs-offset-3">
                     <button type="submit" class ="btn btn-primary">
