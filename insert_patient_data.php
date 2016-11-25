@@ -6,6 +6,11 @@
 
   else
     $name_holder = "";
+
+  require_once('sql_funcs.php');
+
+  $connection = NULL;
+  new_connection($connection);
 ?>
 <html>
     <head>
@@ -51,27 +56,50 @@
                 <label class=" control-label">Address:</label>
                 <div> <input id="addr" class="form-control" type="text" name="address"/> </div>
               </div>
-              
+
               <h3 style="text-align:center">Insert Appointment Data</h3>
-              
+
               <div class="form-group">
                 <label class=" control-label">Specialty:</label>
-                <div> <input id="addr" class="form-control" type="text" name="specialty"/> </div>
+
+                <div><select onchange="get_doctors()" id="spec" class="form-control" name="specialty"/>
+                      <option value=""  selected disabled>Please select a specialty</option>
+                      <?php
+                        $result = sql_secure_query($connection, "SELECT DISTINCT specialty FROM doctor ");
+
+                        foreach($result as $row)
+                            echo("<option value=\"{$row['specialty']}\"> {$row['specialty']} </option>");
+
+                       ?>
+
+                    </select>
+                </div>
               </div>
-              
+
               <div class="form-group">
-                <label class=" control-label">Doctor:</label>
-                <div> <input id="addr" class="form-control" type="text" name="doctor_id"/> </div>
+                <label class="control-label">Doctor:</label>
+
+                <div> <select id="doct" class="form-control" name="doctor_id"/>
+                  <option value="" selected disabled>Please select a doctor</option>
+                  <?php
+                    $result2 = sql_secure_query($connection, "SELECT * FROM doctor ");
+                    foreach($result2 as $row2){
+
+                        echo("<option  class=\" hide_show {$row2['specialty']}\"  value=\"{$row2['doctor_id']}\"> {$row2['name']} </option>");
+                      }
+                   ?>
+                 </select>
+                </div>
               </div>
-              
+
               <div class="form-group">
                 <label class="control-label">Date:</label>
-                <div class=" input-group input-append date"  id="datePicker">
+                <div class=" input-group input-append date"  id="datePicker2">
                   <input type="text" class="form-control" id="appointment_date" name="appointment_date"/>
                   <span class="input-group-addon" id="sizing-addon2"><span class="glyphicon glyphicon-calendar"></span></span>
                 </div>
               </div>
-              
+
               <div class="form-group">
                 <div class="col-xs-5 col-xs-offset-3">
                     <button type="submit" class ="btn btn-primary">
@@ -86,7 +114,17 @@
       </div>
     </body>
     <script>
+
+    function get_doctors(){
+       var spec = $("#spec option:selected").val();
+       /*Hide all doctors without this specialty*/
+       $('.hide_show').hide();
+       /*Show all doctors with this specialty*/
+       $('.' + spec).show();
+    }
+
       $(document).ready(function() {
+        $('.hide_show').hide();
           $('#datePicker')
               .datepicker({
                   format: 'mm/dd/yyyy'
@@ -98,7 +136,17 @@
                   // Revalidate it
                   $('#reg_patient').formValidation('revalidateField', 'birthday');
               });
+          $('#datePicker2')
+              .datepicker({
+                  format: 'mm/dd/yyyy'
+              })
+              .on('changeDate', function(e) {
+                  // Set the value for the date input
+                  $("#appointment_date").val($("#datePicker2").datepicker('getFormattedDate'));
 
+                  // Revalidate it
+                  $('#reg_patient').formValidation('revalidateField', 'appointment_date');
+              });
           $('#reg_patient').formValidation({
               framework: 'bootstrap',
               icon: {
@@ -127,10 +175,37 @@
                           }
                       }
                   },
+                  appointment_date: {
+                      // The hidden input will not be ignored
+                      excluded: false,
+                      validators: {
+                          notEmpty: {
+                              message: 'The date is required'
+                          },
+                          date: {
+                              format: 'MM/DD/YYYY',
+                              message: 'The date is not a valid'
+                          }
+                      }
+                  },
                   address: {
                       validators: {
                           notEmpty: {
-                              message: 'The address is required'
+                              message: 'Please specify your address'
+                          }
+                      }
+                  },
+                  specialty: {
+                      validators: {
+                          notEmpty: {
+                              message: 'Please specify the desired specialty'
+                          }
+                      }
+                  },
+                  doctor_id: {
+                      validators: {
+                          notEmpty: {
+                              message: 'Please specify your doctor'
                           }
                       }
                   },

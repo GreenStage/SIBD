@@ -56,7 +56,7 @@
            Submit
          </button>
        </form>
-       <a href="cancel.php" class=" btn btn-danger">Cancel</a>
+            <input style="margin-left:5px" onclick="location.href='cancel.php';" type="button" value="Cancel" class =" btn btn-danger"/></p>
      </div>
    </div>
  </body>

@@ -30,7 +30,7 @@
                   $connection = null;
                   new_connection($connection);
 
-                  $result = sql_secure_query($connection, "SELECT specialty FROM doctor ");
+                  $result = sql_secure_query($connection, "SELECT DISTINCT specialty FROM doctor ");
 
                   $connection = null;
 
@@ -43,8 +43,9 @@
 
                ?>
            </select>
-       <input style="margin-top:5px" type="submit" value="Submit" class ="btn btn-primary"/></p>
-       <a href="index.php" class=" btn btn-danger">Cancel</a>     
+       <input style="margin-top:5px" type="submit" value="Submit" class ="btn btn-primary"/>
+       <input style="margin-top:5px" onclick="location.href='cancel.php';" type="button" value="Cancel" class =" btn btn-danger"/></p>
+
        </form>
     </div>
   </div>
