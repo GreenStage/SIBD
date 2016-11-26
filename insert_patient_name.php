@@ -7,7 +7,7 @@ $_SESSION['patient_name'] = $_POST['patient_name'];
 ?>
 <html>
     <head>
-        <title>Patient reception</title>
+        <title>SIBD project part 3</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
         <link rel="stylesheet" href="css/style.css" >
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -61,9 +61,10 @@ $_SESSION['patient_name'] = $_POST['patient_name'];
                     }
                     echo("</table>");
                 }
-                echo("<p><a href=\"insert_patient_data.php?name_holder=". $_SESSION['patient_name']."\">Register new patient</a></p>");
+                echo("<p><a href=\"insert_patient_data.php\">Register new patient</a></p>");
+                echo("<p><a href=\"patient_regist.php\">Check the patients registed</a>");
             ?>
-            <a href="cancel.php" class=" btn btn-danger">Cancel</a>
+            <p><a href="session_end.php" class=" btn btn-danger">Cancel</a></p>
         </div>
       </div>
 

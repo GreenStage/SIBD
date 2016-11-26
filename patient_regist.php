@@ -20,26 +20,28 @@
             <?php
                 new_connection($connection);
 
-                $sql = "SELECT name, date, office FROM appointment NATURAL JOIN doctor WHERE patient_id = :patient_id ";
-                $result = sql_secure_query($connection,$sql, Array( ":patient_id" => $_SESSION['patient_id'] ) );
+                $sql = "SELECT * FROM patient";
+                $result = $connection->query($sql);
 
                 $connection = null;
 
                 if ($result->rowCount() == 0)
-                    echo("<p>There is no appointments registed.</p>");
+                    echo("<p>There is no patients registed.</p>");
 
                 else
                 {
                     echo("<table style=\"min-width:415px; margin-top:15px\" class=\"table table-striped table-bordered\">");
-                    echo("<tr><td>doctor</td><td>date</td><td>office</td></tr>");
+                    echo("<tr><td>patient_id</td><td>name</td><td>birthday</td><td>address</td></tr>");
                     foreach($result as $row)
                     {
                         echo("<tr><td>");
+                        echo($row['patient_id']);
+                        echo("</td><td>");
                         echo($row['name']);
                         echo("</td><td>");
-                        echo($row['date']);
+                        echo($row['birhtday']);
                         echo("</td><td>");
-                        echo($row['office']);
+                        echo($row['address']);
                         echo("</td></tr>");
                     }
                     echo("</table>");
@@ -47,7 +49,7 @@
                 $connection = null;
 
             echo("<p><a href=\"session_end.php\">Accept new client</a>");
-            echo("<a style=\"float:right\" href=\"newappointment.php?patient_id=".$_SESSION['patient_id']."\">Schedule another appointment</a></p>");
+            echo("<a style=\"float:right\" href=\"newappointment.php?patient_id=\">Schedule another appointment</a></p>");
             ?>
         </div>
       </div>

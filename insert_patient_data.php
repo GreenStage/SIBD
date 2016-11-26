@@ -1,20 +1,11 @@
 <?php
   session_start();
-  session_destroy(); /*Prevent previous session leftovers*/
-  if(isset($_GET['name_holder']))
-    $name_holder = $_GET['name_holder'];
-
-  else
-    $name_holder = "";
-
   require_once('sql_funcs.php');
-
-  $connection = NULL;
   new_connection($connection);
 ?>
 <html>
     <head>
-        <title>Patient registration</title>
+        <title>SIBD project part 3</title>
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
         <link rel="stylesheet" href="css/bootstrap-datepicker.min.css" >
@@ -39,9 +30,8 @@
           <form id="reg_patient" class="form-horizontal" action="accept_reg_and_appschedule.php" method="post">
 
             <div class="form-group" >
-              <label class="control-label">Name:</label>
-              <div ><?php echo("<input value=\"".$name_holder ."\" class=\"form-control\" type=\"text\" name=\"name\" />") ?>
-              </div>
+                <p><b>Name: </b><?php echo($_SESSION['patient_name']); ?>
+              </p>
             </div>
 
               <div class="form-group">
@@ -105,6 +95,7 @@
                     <button type="submit" class ="btn btn-primary">
               <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                       Submit</button>
+                    <a href="session_end.php" class=" btn btn-danger">Cancel</a>
                 </div>
               </div>
 
