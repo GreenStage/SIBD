@@ -1,6 +1,6 @@
 <?php
-  session_start();
   require_once('sql_funcs.php');
+  session_start();
 ?>
 <html>
   <head>
@@ -24,40 +24,47 @@
                                                                   ":birthday"  => date('Y-m-d',strtotime($_SESSION['birthday'])) ,
                                                                   ":address"   => $_SESSION['address'] ) );
             $connection->exec($sql);
-            
-            $sql = "SELECT max(patient_id) FROM patient";
-            $result = $connection->query($sql);
+
+            $result = sql_secure_query($connection, "SELECT max(patient_id) FROM patient");
             $row = $result->fetch();
+
             $_SESSION['patient_id'] = $row['max(patient_id)'];
-            if(((strcmp(  $_SESSION['appointment_day'], "Saturday") == 0) or (strcmp(  $_SESSION['appointment_day'], "Sunday") == 0))){
-            
+
+            if( $_SESSION['appointment_day'] === "Saturday" || $_SESSION['appointment_day'] === "Sunday" ){
+
                  echo("<p>Invalid date for appointment, the hospital does not take appointments at weekends");
                  echo("<p><a href=\"insert_patient_data.php\">Redo operation</a></p>");
+                 
                 $connection->rollback();
-            }else{
+            }
+            else {
                $sql = "SELECT count(*) FROM appointment WHERE date = :appointment_date";
-               $result = sql_secure_query($connection, $sql, Array(":appointment_date" => date('Y-m-d',strtotime($_SESSION['appointment_date']))));   
+               $result = sql_secure_query($connection, $sql, Array(":appointment_date" => date('Y-m-d',strtotime($_SESSION['appointment_date']))));
+
                $row = $result->fetch();
-               $consultorio = "Consultorio_".($row['count(*)'] + 1);    
+               $consultorio = "Consultorio_".($row['count(*)'] + 1);
+
                $sql = "INSERT INTO appointment VALUES (:patient_id,:doctor_id,:appointment_date,:consultorio)";
-               $result = sql_secure_query($connection, $sql, Array(  ":patient_id" => $_SESSION['patient_id'] ,
-                                                                      ":doctor_id" => $_SESSION['doctor_id'] ,
-                                                                      ":appointment_date" => date('Y-m-d',strtotime($_SESSION['appointment_date'])),
-                                                                      ":consultorio" => $consultorio));
+
+               $result = sql_secure_query($connection, $sql, Array(  ":patient_id"        => $_SESSION['patient_id'] ,
+                                                                      ":doctor_id"        => $_SESSION['doctor_id'] ,
+                                                                      ":appointment_date" => date('Y-m-d',strtotime($_SESSION['appointment_date']) ),
+                                                                      ":consultorio"       => $consultorio) );
                 $connection->exec($sql);
                 $connection->commit();
+
                 echo("<p class=\"alert alert-success\"> <span class=\"glyphicon glyphicon-ok\"></span> Patient registed and appointment inserted in database </p>");
                 echo("<p><a href=\"patient_appointments.php\">Check appointments for this patient</a>");
                 echo("<p><a href=\"newappointment.php\">Schedule another appointment</a></p>");
                 echo("<p><a href=\"patient_regist.php\">Check the patients registed</a>");
                 echo("<p><a href=\"session_end.php\">Accept new client</a>");
-                
+
 
             }
             $connection = NULL;
-            $_SESSION['specialty'] = NULL; 
+            $_SESSION['specialty'] = NULL;
             $_SESSION['doctor_id'] = NULL;
-            $_SESSION['appointment_date'] = NULL;  
+            $_SESSION['appointment_date'] = NULL;
           ?>
         </div>
       </div>

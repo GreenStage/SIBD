@@ -2,7 +2,7 @@
   session_start();
   session_destroy();
 
-  header('Refresh: 2; URL=index.php');
+  header('Refresh: 1; URL=index.php');
  ?>
  <html>
  <head>

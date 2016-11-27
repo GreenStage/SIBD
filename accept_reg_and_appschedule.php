@@ -20,32 +20,25 @@
    <div class="center_ct" style="text-align:center">
      <div class ="center" >
        <h3 style="min-width:415px">Verify Patient data: </h3>
+
        <p> Name:&nbsp<b> <?php echo($_SESSION['patient_name']); ?></b></p>
        <p> Birthday:&nbsp <b><?php echo($_SESSION['birthday']); ?></b></p>
-       <p> Adress:&nbsp <b><?php echo($_SESSION['address']); ?></b></p>     
-       <h3 style="min-width:415px">Verify Appointment </h3>    
+       <p> Adress:&nbsp <b><?php echo($_SESSION['address']); ?></b></p>
+       <h3 style="min-width:415px">Verify Appointment </h3>
        <p> Speciality:&nbsp<b> <?php echo($_SESSION['specialty']); ?></b></p>
        <p> Doctor:&nbsp <b><?php
                   new_connection($connection);
-                  $sql = "SELECT name, specialty  FROM doctor WHERE doctor_id = :doctor_id";
+                  $sql = "SELECT name  FROM doctor WHERE doctor_id = :doctor_id";
                   $result =  sql_secure_query($connection, $sql, Array( ":doctor_id" =>  $_SESSION['doctor_id']));
                   $row = $result->fetch();
-                  $specialty_confirm = $row['specialty'];
                   echo($row['name']);
                ?></b></p>
        <p> Date: &nbsp <b><?php echo $_SESSION['appointment_date'] . " " . $_SESSION['appointment_day']; ?></b></p>
-           <?php
-                if($specialty_confirm == $_SESSION['specialty'] ){
-                    echo("<p><a href=\"insert_patient_data.php\">Change information</a></p>");         
-                    echo("<a href=\"reg_new_patient.php\" class=\" btn btn-default\">Confirm</a>");
-                    echo("<a href=\"session_end.php\" class=\" btn btn-danger\">Cancel</a>");
-                }else{
-                    echo("<p>ERROR!! The specialty has changed but not the doctor<a href=\"insert_patient_data.php\"> Redo operation</a></p>");
-                    echo("<a href=\"session_end.php\" class=\" btn btn-danger\">Cancel</a>");
-                }
-                $connection = NULL;
-           ?>
+       <p><a href="insert_patient_data.php">Change information</a></p>
+       <a href="reg_new_patient.php" class=" btn btn-default">Confirm</a>
+       <a href="session_end.php" class=" btn btn-danger">Cancel</a>
          </div>
        </div>
  </body>
+
 </html>

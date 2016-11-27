@@ -14,9 +14,7 @@
     <body>
       <div class="center_ct">
         <div class ="center" >
-          <p><h2 style="float:left">Selected Patient: &nbsp</h2>
-          <h3 style="color: #366fd7"><?php echo($_SESSION['patient_name']); ?></h3></p>
-          Patient ID: <?php echo($_SESSION['patient_id']); ?>
+          <p><h2 style="float:left">Registered Patients : &nbsp</h2>
             <?php
                 new_connection($connection);
 
@@ -32,18 +30,16 @@
                 {
                     echo("<table style=\"min-width:415px; margin-top:15px\" class=\"table table-striped table-bordered\">");
                     echo("<tr><td>patient_id</td><td>name</td><td>birthday</td><td>address</td></tr>");
-                    foreach($result as $row)
-                    {
-                        echo("<tr><td>");
-                        echo($row['patient_id']);
-                        echo("</td><td>");
-                        echo($row['name']);
-                        echo("</td><td>");
-                        echo($row['birhtday']);
-                        echo("</td><td>");
-                        echo($row['address']);
-                        echo("</td></tr>");
+
+                    foreach($result as $row){
+                        echo("<tr>");
+                        echo("<td>"  . $row['patient_id']. "</td>");
+                        echo("<td>"  . $row['name']. "</td>");
+                        echo("<td>"  . $row['birthday']. "</td>");
+                        echo("<td>"  . $row['address']. "</td>");
+                        echo("</tr>");
                     }
+                    
                     echo("</table>");
                 }
                 $connection = null;

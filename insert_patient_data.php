@@ -30,8 +30,8 @@
           <form id="reg_patient" class="form-horizontal" action="accept_reg_and_appschedule.php" method="post">
 
             <div class="form-group" >
-                <p><b>Name: </b><?php echo($_SESSION['patient_name']); ?>
-              </p>
+                <div style="text-align:center;"><b>Name: </b><?php echo($_SESSION['patient_name']); ?>
+              </div>
             </div>
 
               <div class="form-group">
@@ -71,6 +71,7 @@
 
                 <div> <select id="doct" class="form-control" name="doctor_id"/>
                   <option value="" selected disabled>Please select a doctor</option>
+
                   <?php
                     $result2 = sql_secure_query($connection, "SELECT * FROM doctor ");
                     foreach($result2 as $row2){
@@ -78,6 +79,7 @@
                         echo("<option  class=\" hide_show {$row2['specialty']}\"  value=\"{$row2['doctor_id']}\"> {$row2['name']} </option>");
                       }
                    ?>
+
                  </select>
                 </div>
               </div>
@@ -112,6 +114,8 @@
        $('.hide_show').hide();
        /*Show all doctors with this specialty*/
        $('.' + spec).show();
+       $('[name=doctor_id]').val( '' );
+       $('#reg_patient').formValidation('revalidateField', 'doctor_id');
     }
 
       $(document).ready(function() {
@@ -153,7 +157,7 @@
                           }
                       }
                   },
-                  birthday: {
+                  birthday, appointment_date: {
                       // The hidden input will not be ignored
                       excluded: false,
                       validators: {

@@ -8,7 +8,7 @@
         <script src="http://formvalidation.io/vendor/formvalidation/js/formValidation.min.js"></script>
         <script src="http://formvalidation.io/vendor/formvalidation/js/framework/bootstrap.min.js"></script>
         <style type="text/css">
-            #reg_patient .form-control-feedback {
+            #insert_name .form-control-feedback {
             top: 30px;
             right: -30px;
             }
@@ -57,5 +57,5 @@
               }
           });
       });
-    </script>    
+    </script>
 </html>

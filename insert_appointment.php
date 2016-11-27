@@ -11,24 +11,29 @@
   <?php
     session_start();
     require_once('sql_funcs.php');
-     
+
 
     new_connection($connection);
+
+    $sql = "SELECT doctor_id FROM doctor WHERE name = :doctor_name";
+    $result= sql_secure_query($connection, $sql, Array( ":doctor_name" => $_SESSION['doctor_name'] ) );
+
+    $row = $result->fetch();
+    $_SESSION['doctor_id'] = $row['doctor_id'];
+
     $sql = "SELECT count(*) FROM appointment WHERE date = :appointment_date";
-    $result = sql_secure_query($connection, $sql, Array(":appointment_date" => date('Y-m-d',strtotime($_SESSION['appointment_date']))));   
+    $result = sql_secure_query($connection, $sql, Array( ":appointment_date" => date( 'Y-m-d',strtotime($_SESSION['appointment_date']) ) ) );
+
     $row = $result->fetch();
     $consultorio = "Consultorio_".($row['count(*)'] + 1);
+
     $sql = "INSERT INTO appointment VALUES (:patient_id, :doctor_id, :appointment_date, :consultorio)";
-    $result = sql_secure_query($connection, $sql, Array(  ":patient_id"      => $_SESSION['patient_id'] ,
-                                                          ":doctor_id"       => $_SESSION['doctor_id'] ,
-                                                          ":appointment_date" => date('Y-m-d',strtotime($_SESSION['appointment_date'])),
-                                                          ":consultorio" => $consultorio));
+    $result = sql_secure_query($connection, $sql, Array(  ":patient_id"       => $_SESSION['patient_id'] ,
+                                                          ":doctor_id"        => $_SESSION['doctor_id'] ,
+                                                          ":appointment_date" => date('Y-m-d',strtotime($_SESSION['appointment_date'])) ,
+                                                          ":consultorio"      => $consultorio ) );
     $connection = NULL;
-    $_SESSION['specialty'] = NULL; 
-    $_SESSION['doctor_id'] = NULL;
-    $_SESSION['doctor_name'] = NULL;
-    $_SESSION['appointment_date'] = NULL;
-     
+
   ?>
 <div class="center_ct">
     <div class ="center">

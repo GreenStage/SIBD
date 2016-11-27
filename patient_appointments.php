@@ -32,16 +32,15 @@
                 {
                     echo("<table style=\"min-width:415px; margin-top:15px\" class=\"table table-striped table-bordered\">");
                     echo("<tr><td>doctor</td><td>date</td><td>office</td></tr>");
-                    foreach($result as $row)
-                    {
-                        echo("<tr><td>");
-                        echo($row['name']);
-                        echo("</td><td>");
-                        echo($row['date']);
-                        echo("</td><td>");
-                        echo($row['office']);
-                        echo("</td></tr>");
+
+                    foreach($result as $row){
+                        echo("<tr>");
+                        echo("<td>" . $row['name']    ."</td>");
+                        echo("<td>" . $row['date']    ."</td>");
+                        echo("<td>" . $row['office']  ."</td>");
+                        echo("</tr>");
                     }
+
                     echo("</table>");
                 }
                 $connection = null;

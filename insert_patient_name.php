@@ -1,9 +1,8 @@
 <?php
-require_once('sql_funcs.php');
-session_start();
-session_destroy();
-session_start();
-$_SESSION['patient_name'] = $_POST['patient_name'];
+  require_once('sql_funcs.php');
+  session_start();
+
+  $_SESSION['patient_name'] = $_POST['patient_name'];
 ?>
 <html>
     <head>
@@ -22,18 +21,16 @@ $_SESSION['patient_name'] = $_POST['patient_name'];
                 $connection = null;
                 new_connection($connection);
 
-                $result = sql_secure_query($connection, "SELECT * FROM patient WHERE name = :patient_name ORDER BY name", Array(":patient_name" =>  $_SESSION['patient_name'] ) );
-
+                $sql =  "SELECT * FROM patient WHERE name = :patient_name ORDER BY name";
+                $result = sql_secure_query($connection,  $sql , Array(":patient_name" =>  $_SESSION['patient_name'] ) );
                 $connection = null;
 
                 $nrows = $result->rowCount();
 
                 if ($nrows == 0)
-                {
                     echo("<p class=\"alert alert-warning\">There is no registed patient with the name:  {$_SESSION['patient_name']} .</p>");
-                }
-                else
-                {
+
+                else{
                   echo ("<h3>Select Patient</h3>");
 
                   if( $nrows == 1)
@@ -43,27 +40,22 @@ $_SESSION['patient_name'] = $_POST['patient_name'];
 
                     echo("<table class=\"table table-striped table-bordered\"> ");
                     echo("<tr><td>patient_id</td><td>name</td><td>birthday</td><td>address</td></tr>");
-                    foreach($result as $row)
-                    {
-                        echo("<tr><td>");
-                        echo($row['patient_id']);
-                        echo("</td><td>");
-                        echo($row['name']);
-                        echo("</td><td>");
-                        echo($row['birthday']);
-                        echo("</td><td>");
-                        echo($row['address']);
-                        echo("</td><td>");
-                        echo("<a href=\"newappointment.php?patient_id=");
-                        echo($row['patient_id']);
-                        echo("\"> <span class=\"glyphicon glyphicon-search\" aria-hidden=\"true\"></span>Schedule appointment</a>");
-                        echo("</td></tr>");
+
+                    foreach($result as $row){
+                        echo("<tr><td>" . $row['patient_id']  . "</td>" );
+                        echo("<td>"     . $row['name']        . "</td>" );
+                        echo("<td>"     . $row['birthday']    . "</td>" );
+                        echo("<td>"     . $row['address']     . "</td>" );
+                        echo("<td> <a href=\"newappointment.php?patient_id=" . $row['patient_id'] ."\" >" );
+                        echo("<span class=\"glyphicon glyphicon-search\" aria-hidden=\"true\"></span>Schedule appointment</a> </td>");
+                        echo("</tr>");
                     }
+
                     echo("</table>");
                 }
-                echo("<p><a href=\"insert_patient_data.php\">Register new patient</a></p>");
-                echo("<p><a href=\"patient_regist.php\">Check the patients registed</a>");
             ?>
+            <p><a href="insert_patient_data.php">Register new patient</a></p>
+            <p><a href="patient_regist.php">Check the patients registed</a></p>
             <p><a href="session_end.php" class=" btn btn-danger">Cancel</a></p>
         </div>
       </div>
