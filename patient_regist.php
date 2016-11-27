@@ -47,9 +47,8 @@
                     echo("</table>");
                 }
                 $connection = null;
-
-            echo("<p><a href=\"session_end.php\">Accept new client</a>");
-            echo("<a style=\"float:right\" href=\"newappointment.php?patient_id=\">Schedule another appointment</a></p>");
+            echo("<p><a href=\"insert_patient_data.php\">Register new patient</a></p>");
+            echo("<a href=\"session_end.php\" class=\" btn btn-danger\">Cancel</a>");
             ?>
         </div>
       </div>

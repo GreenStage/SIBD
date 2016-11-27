@@ -27,16 +27,23 @@
        <p> Speciality:&nbsp<b> <?php echo($_SESSION['specialty']); ?></b></p>
        <p> Doctor:&nbsp <b><?php
                   new_connection($connection);
-                  $sql = "SELECT name FROM doctor WHERE doctor_id = :doctor_id";
+                  $sql = "SELECT name, specialty  FROM doctor WHERE doctor_id = :doctor_id";
                   $result =  sql_secure_query($connection, $sql, Array( ":doctor_id" =>  $_SESSION['doctor_id']));
                   $row = $result->fetch();
+                  $specialty_confirm = $row['specialty'];
                   echo($row['name']);
                ?></b></p>
        <p> Date: &nbsp <b><?php echo $_SESSION['appointment_date'] . " " . $_SESSION['appointment_day']; ?></b></p>
            <?php
-                echo("<p><a href=\"insert_patient_data.php\">Change information</a>></p>");         
-                echo("<a href=\"reg_new_patient.php\" class=\" btn btn-default\">Confirm</a>");
-                echo("<a href=\"session_end.php\" class=\" btn btn-danger\">Cancel</a>");
+                if($specialty_confirm == $_SESSION['specialty'] ){
+                    echo("<p><a href=\"insert_patient_data.php\">Change information</a></p>");         
+                    echo("<a href=\"reg_new_patient.php\" class=\" btn btn-default\">Confirm</a>");
+                    echo("<a href=\"session_end.php\" class=\" btn btn-danger\">Cancel</a>");
+                }else{
+                    echo("<p>ERROR!! The specialty has changed but not the doctor<a href=\"insert_patient_data.php\"> Redo operation</a></p>");
+                    echo("<a href=\"session_end.php\" class=\" btn btn-danger\">Cancel</a>");
+                }
+                $connection = NULL;
            ?>
          </div>
        </div>
