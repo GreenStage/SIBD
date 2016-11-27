@@ -1,11 +1,15 @@
 <?php
   require_once('sql_funcs.php');
+
+  $connection = null;
   new_connection($connection);
+  
   session_start();
 
-  if(isset($_GET['patient_id']))
+  if(isset($_GET['patient_id'])){
       $_SESSION['patient_id'] = $_GET['patient_id'];
-  
+  }
+
 ?>
 <head>
   <title>SIBD project part 3</title>
@@ -108,7 +112,7 @@
 
      $(document).ready(function() {
      $('.hide_show').hide();
-    
+
        $('#datePicker2')
            .datepicker({
                format: 'mm/dd/yyyy'
