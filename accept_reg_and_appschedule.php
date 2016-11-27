@@ -22,8 +22,8 @@
        <h3 style="min-width:415px">Verify Patient data: </h3>
        <p> Name:&nbsp<b> <?php echo($_SESSION['patient_name']); ?></b></p>
        <p> Birthday:&nbsp <b><?php echo($_SESSION['birthday']); ?></b></p>
-       <p> Birthday:&nbsp <b><?php echo($_SESSION['address']); ?></b></p>     
-       <h3 style="min-width:415px">Verify Appointment </h3>
+       <p> Adress:&nbsp <b><?php echo($_SESSION['address']); ?></b></p>     
+       <h3 style="min-width:415px">Verify Appointment </h3>    
        <p> Speciality:&nbsp<b> <?php echo($_SESSION['specialty']); ?></b></p>
        <p> Doctor:&nbsp <b><?php
                   new_connection($connection);
@@ -34,9 +34,9 @@
                ?></b></p>
        <p> Date: &nbsp <b><?php echo $_SESSION['appointment_date'] . " " . $_SESSION['appointment_day']; ?></b></p>
            <?php
-                        echo("<a href=\"reg_new_patient.php\" class=\" btn btn-default\">Confirm</a>");
-                        echo("<a href=\"session_end.php\" class=\" btn btn-danger\">Cancel</a>");
-
+                echo("<p><a href=\"insert_patient_data.php\">Change information</a>></p>");         
+                echo("<a href=\"reg_new_patient.php\" class=\" btn btn-default\">Confirm</a>");
+                echo("<a href=\"session_end.php\" class=\" btn btn-danger\">Cancel</a>");
            ?>
          </div>
        </div>

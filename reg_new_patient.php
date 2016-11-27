@@ -36,11 +36,15 @@
                  echo("<p><a href=\"insert_patient_data.php\">Redo operation</a></p>");
                 $connection->rollback();
             }else{
-               $sql = "INSERT INTO appointment VALUES (:patient_id,:doctor_id,:appointment_date,'consultorio2')";
-
-                $result = sql_secure_query($connection, $sql, Array(  ":patient_id"      => $_SESSION['patient_id'] ,
+               $sql = "SELECT count(*) FROM appointment WHERE date = :appointment_date";
+               $result = sql_secure_query($connection, $sql, Array(":appointment_date"   => date('Y-m-        d',strtotime($_SESSION['appointment_date'] ) ));                              
+               $row = $result->fetch();
+               $consultorio = "consultorio_".($row['count(*)'] + 1);    
+               $sql = "INSERT INTO appointment VALUES (:patient_id,:doctor_id,:appointment_date,:consultorio)";
+               $result = sql_secure_query($connection, $sql, Array(  ":patient_id"      => $_SESSION['patient_id'] ,
                                                                       ":doctor_id"  => $_SESSION['doctor_id'] ,
-                                                                      ":appointment_date"   => date('Y-m-d',strtotime($_SESSION['appointment_date'])) ) );
+                                                                      ":appointment_date"   => date('Y-m-d',strtotime($_SESSION['appointment_date'])),
+                                                                      ":consultorio" => $consultorio));
                 $connection->exec($sql);
                 $connection->commit();
                 echo("<p class=\"alert alert-success\"> <span class=\"glyphicon glyphicon-ok\"></span> Patient registed and appointment inserted in database </p>");
