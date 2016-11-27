@@ -1,22 +1,19 @@
 <html>
-  <head>
-      <title>SIBD project part 3</title>
-
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-        <link rel="stylesheet" href="css/style.css" >
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-        <script src="http://formvalidation.io/vendor/formvalidation/js/formValidation.min.js"></script>
-        <script src="http://formvalidation.io/vendor/formvalidation/js/framework/bootstrap.min.js"></script>
-        <style type="text/css">
-            #insert_name .form-control-feedback {
-            top: 30px;
-            right: -30px;
-            }
-        </style>
-  </head>
-
-  <body>
-
+    <head>
+        <title>SIBD project part 3</title>
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+            <link rel="stylesheet" href="css/style.css" >
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+            <script src="http://formvalidation.io/vendor/formvalidation/js/formValidation.min.js"></script>
+            <script src="http://formvalidation.io/vendor/formvalidation/js/framework/bootstrap.min.js"></script>
+            <style type="text/css">
+                #insert_name .form-control-feedback {
+                    top: 30px;
+                    right: -30px;
+                }
+            </style>
+    </head>
+    <body>
     <div class="center_ct">
       <div class ="center">
         <form  id="insert_name" action="insert_patient_name.php" method="post">

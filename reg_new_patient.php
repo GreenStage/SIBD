@@ -25,19 +25,15 @@
                                                                   ":address"   => $_SESSION['address'] ) );
             $connection->exec($sql);
 
-            $result = sql_secure_query($connection, "SELECT max(patient_id) FROM patient");
+            $result = sql_secure_query($connection, "SELECT count(*) FROM patient");
             $row = $result->fetch();
-
-            $_SESSION['patient_id'] = $row['max(patient_id)'];
-
             if( $_SESSION['appointment_day'] === "Saturday" || $_SESSION['appointment_day'] === "Sunday" ){
 
                  echo("<p>Invalid date for appointment, the hospital does not take appointments at weekends");
                  echo("<p><a href=\"insert_patient_data.php\">Redo operation</a></p>");
                  
                 $connection->rollback();
-            }
-            else {
+            }else{
                $sql = "SELECT count(*) FROM appointment WHERE date = :appointment_date";
                $result = sql_secure_query($connection, $sql, Array(":appointment_date" => date('Y-m-d',strtotime($_SESSION['appointment_date']))));
 
@@ -62,9 +58,6 @@
 
             }
             $connection = NULL;
-            $_SESSION['specialty'] = NULL;
-            $_SESSION['doctor_id'] = NULL;
-            $_SESSION['appointment_date'] = NULL;
           ?>
         </div>
       </div>

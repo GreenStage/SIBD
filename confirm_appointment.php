@@ -21,17 +21,18 @@
         <h3 style="color: #366fd7"><?php echo($_SESSION['patient_name']); ?></h3></p>
         Patient ID: <?php echo($_SESSION['patient_id']); ?>
         <h3 style="min-width:415px">Please Verify Your Appointment </h3>
-        <p> Speciality:&nbsp<b> <?php echo($_SESSION['specialty']); ?> </b> <a href="newappointment.php">Change</a></p>
-        <p> Doctor:&nbsp <b><?php echo($_SESSION['doctor_name']); ?></b> <a href="choosedoctor.php">Change</a></p>
-        <p> Date: &nbsp <b><?php echo $_SESSION['appointment_date'] . " " . $_SESSION['appointment_day']; ?></b> <a href="choosedate.php">Change</a></p>
+        <p> Speciality:&nbsp<b> <?php echo($_SESSION['specialty']); ?></b></p>
+        <p> Doctor:&nbsp <b><?php echo($_SESSION['doctor_name']); ?></b> </p>
+        <p> Date: &nbsp <b><?php echo $_SESSION['appointment_date'] . " " . $_SESSION['appointment_day']; ?></b></p>
             <?php
 
               if( $_SESSION['appointment_day'] === "Saturday" || $_SESSION['appointment_day'] === "Sunday" ){
                    echo("<p>Invalid date for appointment, the hospital does not take appointments at weekends");
-                   echo("<p><a href=\"choosedate.php\">Choose another date</a></p>");
+                   echo("<p><a href=\"newappointment.php\">Choose another date</a></p>");
               }
 
               else {
+                 echo("<p><a href=\"newappointment.php\"> Change the specifications</a></p>");  
                  echo("<a href=\"insert_appointment.php\" class=\" btn btn-default\">Confirm</a>&nbsp");
                  echo("<a href=\"session_end.php\" class=\" btn btn-danger\">Cancel</a>");
               }

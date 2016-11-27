@@ -78,6 +78,7 @@
 
                         echo("<option  class=\" hide_show {$row2['specialty']}\"  value=\"{$row2['doctor_id']}\"> {$row2['name']} </option>");
                       }
+                    $connection = NULL;
                    ?>
 
                  </select>

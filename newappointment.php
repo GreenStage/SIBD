@@ -1,14 +1,11 @@
 <?php
   require_once('sql_funcs.php');
-  $connection = null;
   new_connection($connection);
   session_start();
 
   if(isset($_GET['patient_id']))
       $_SESSION['patient_id'] = $_GET['patient_id'];
-  else {
-    header('index.php');
-  }
+  
 ?>
 <head>
   <title>SIBD project part 3</title>
