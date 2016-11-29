@@ -3,7 +3,7 @@
 
   $connection = null;
   new_connection($connection);
-  
+
   session_start();
 
   if(isset($_GET['patient_id'])){
@@ -104,9 +104,9 @@
      function get_doctors(){
        var spec = $("#spec option:selected").val();
        /*Hide all doctors without this specialty*/
-       $('.hide_show').hide();
+       $('.hide_show').prop('disabled', true);
        /*Show all doctors with this specialty*/
-       $('.' + spec).show();
+       $('.' + spec).prop('disabled', false);
        $('[name=doctor_name]').val( '' );
        $('#reg_patient').formValidation('revalidateField', 'doctor_name');
        }

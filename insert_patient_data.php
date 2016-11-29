@@ -30,11 +30,11 @@
           <h3 style="text-align:center">Insert Patient Data</h3>
           <form id="reg_patient" class="form-horizontal" action="accept_reg_and_appschedule.php" method="post">
 
-          
+
             <div class="form-group">
                 <label class=" control-label">Name:</label>
                 <div> <input class="form-control" type="text" name="patient_name"/> </div>
-              </div>  
+              </div>
 
               <div class="form-group">
                 <label class="control-label">Birthday:</label>
@@ -114,9 +114,9 @@
     function get_doctors(){
        var spec = $("#spec option:selected").val();
        /*Hide all doctors without this specialty*/
-       $('.hide_show').hide();
+       $('.hide_show').prop('disabled', true);
        /*Show all doctors with this specialty*/
-       $('.' + spec).show();
+       $('.' + spec).prop('disabled', false);
        $('[name=doctor_id]').val( '' );
        $('#reg_patient').formValidation('revalidateField', 'doctor_id');
     }
