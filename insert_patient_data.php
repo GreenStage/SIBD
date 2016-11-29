@@ -1,6 +1,7 @@
 <?php
   session_start();
   require_once('sql_funcs.php');
+  $connection = null;
   new_connection($connection);
 ?>
 <html>
@@ -158,7 +159,7 @@
                           }
                       }
                   },
-                  birthday, appointment_date: {
+                  birthday: {
                       // The hidden input will not be ignored
                       excluded: false,
                       validators: {
