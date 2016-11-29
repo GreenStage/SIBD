@@ -29,9 +29,10 @@
               if( $_SESSION['appointment_day'] === "Saturday" || $_SESSION['appointment_day'] === "Sunday" ){
                    echo("<p>Invalid date for appointment, the hospital does not take appointments at weekends");
                    echo("<p><a href=\"newappointment.php\">Choose another date</a></p>");
-              }
-
-              else {
+              }else if(strtotime(date('Y-m-d')) > strtotime(date('Y-m-d',strtotime($_SESSION['appointment_date'])))){
+                  echo("<p>Invalid date for appointment, you cant schedule a appointment in a date that already past");
+                  echo("<p><a href=\"newappointment.php\">Choose another date</a></p>");
+              }else{
                  echo("<p><a href=\"newappointment.php\"> Change the specifications</a></p>");  
                  echo("<a href=\"insert_appointment.php\" class=\" btn btn-default\">Confirm</a>&nbsp");
                  echo("<a href=\"session_end.php\" class=\" btn btn-danger\">Cancel</a>");

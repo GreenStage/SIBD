@@ -36,6 +36,12 @@
                  echo("<p><a href=\"insert_patient_data.php\">Redo operation</a></p>");
 
                 $connection->rollback();
+                
+            }else if(strtotime(date('Y-m-d')) > strtotime(date('Y-m-d',strtotime($_SESSION['appointment_date'])))){
+                echo("<p>Invalid date for appointment, you cant schedule a appointment in a date that already past");
+                echo("<p><a href=\"insert_patient_data.php\">Redo operation</a></p>");
+
+                $connection->rollback();
             }else{
                $sql = "SELECT count(*) FROM appointment WHERE date = :appointment_date";
                $result = sql_secure_query($connection, $sql, Array(":appointment_date" => date('Y-m-d',strtotime($_SESSION['appointment_date']))));
