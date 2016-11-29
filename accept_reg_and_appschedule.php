@@ -1,6 +1,7 @@
 <?php
   require_once('sql_funcs.php');
   session_start();
+  $_SESSION['patient_name'] = $_POST['patient_name'];
   $_SESSION['appointment_date'] = $_POST['appointment_date'];
   $_SESSION['birthday'] = $_POST['birthday'];
   $_SESSION['address'] = $_POST['address'];

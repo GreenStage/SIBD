@@ -8,6 +8,7 @@
 
   if(isset($_GET['patient_id'])){
       $_SESSION['patient_id'] = $_GET['patient_id'];
+      $_SESSION['patient_name'] = $_GET['patient_name'];
   }
 
 ?>

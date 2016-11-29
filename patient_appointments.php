@@ -46,7 +46,7 @@
                 $connection = null;
 
             echo("<p><a href=\"session_end.php\">Accept new client</a>");
-            echo("<a style=\"float:right\" href=\"newappointment.php?patient_id=".$_SESSION['patient_id']."\">Schedule another appointment</a></p>");
+            echo("<a style=\"float:right\" href=\"newappointment.php\">Schedule another appointment</a></p>");
             ?>
         </div>
       </div>

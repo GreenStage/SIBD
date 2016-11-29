@@ -1,8 +1,9 @@
 <?php
   require_once('sql_funcs.php');
   session_start();
-
-  $_SESSION['patient_name'] = $_POST['patient_name'];
+  if(isset($_POST['patient_name'])){
+      $_SESSION['try_name'] = $_POST['patient_name'];
+  }
 ?>
 <html>
     <head>
@@ -21,8 +22,8 @@
                 $connection = null;
                 new_connection($connection);
 
-                $sql =  "SELECT * FROM patient WHERE name = :patient_name ORDER BY name";
-                $result = sql_secure_query($connection,  $sql , Array(":patient_name" =>  $_SESSION['patient_name'] ) );
+                $sql =  "SELECT * FROM patient WHERE name like :patient_name ORDER BY name";
+                $result = sql_secure_query($connection,  $sql , Array(":patient_name" =>  '%'.$_SESSION['try_name'].'%' ) );
                 $connection = null;
 
                 $nrows = $result->rowCount();
@@ -34,9 +35,9 @@
                   echo ("<h3>Select Patient</h3>");
 
                   if( $nrows == 1)
-                    echo ("<p class=\"alert alert-info\"> 1 match found for name <b>" .$_SESSION['patient_name'] . "</b></p>");
+                    echo ("<p class=\"alert alert-info\"> 1 match found for <b>".$_SESSION['try_name']."</b></p>");
                   else
-                    echo ("<p class=\"alert alert-info\"> ".$nrows." matches found for name <b>" .$_SESSION['patient_name'] . "</b></p>");
+                    echo ("<p class=\"alert alert-info\"> ".$nrows." matches found for <b>".$_SESSION['try_name']."</b></p>");
 
                     echo("<table class=\"table table-striped table-bordered\"> ");
                     echo("<tr><td>patient_id</td><td>name</td><td>birthday</td><td>address</td></tr>");
@@ -46,7 +47,7 @@
                         echo("<td>"     . $row['name']        . "</td>" );
                         echo("<td>"     . $row['birthday']    . "</td>" );
                         echo("<td>"     . $row['address']     . "</td>" );
-                        echo("<td> <a href=\"newappointment.php?patient_id=" . $row['patient_id'] ."\" >" );
+                        echo("<td><a href=\"newappointment.php?patient_id=" . $row['patient_id'] ."&patient_name=".$row['name']."\">" );
                         echo("<span class=\"glyphicon glyphicon-search\" aria-hidden=\"true\"></span>Schedule appointment</a> </td>");
                         echo("</tr>");
                     }

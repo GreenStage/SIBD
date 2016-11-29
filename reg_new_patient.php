@@ -17,17 +17,18 @@
           <?php
             new_connection($connection);
             $connection->beginTransaction();
+            
+            $result = sql_secure_query($connection, "SELECT max(patient_id) FROM patient");
+            $row = $result->fetch();
+            $_SESSION['patient_id'] = $row['max(patient_id)'] + 1;
 
-            $sql = "INSERT INTO patient (name, birthday, address ) VALUES (:name,:birthday,:address)";
+            $sql = "INSERT INTO patient VALUES (:patient_id,:name,:birthday,:address)";
 
-            $result = sql_secure_query($connection, $sql, Array(  ":name"      => $_SESSION['patient_name'] ,
+            $result = sql_secure_query($connection, $sql, Array(  "patient_id" => $_SESSION['patient_id'],
+                                                                  ":name"      => $_SESSION['patient_name'] ,
                                                                   ":birthday"  => date('Y-m-d',strtotime($_SESSION['birthday'])) ,
                                                                   ":address"   => $_SESSION['address'] ) );
             $connection->exec($sql);
-
-            $result = sql_secure_query($connection, "SELECT max(patient_id) FROM patient");
-            $row = $result->fetch();
-            $_SESSION['patient_id'] = $row['max(patient_id)'];
 
             if( $_SESSION['appointment_day'] === "Saturday" || $_SESSION['appointment_day'] === "Sunday" ){
 

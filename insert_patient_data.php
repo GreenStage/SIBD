@@ -30,10 +30,11 @@
           <h3 style="text-align:center">Insert Patient Data</h3>
           <form id="reg_patient" class="form-horizontal" action="accept_reg_and_appschedule.php" method="post">
 
-            <div class="form-group" >
-                <div style="text-align:center;"><b>Name: </b><?php echo($_SESSION['patient_name']); ?>
-              </div>
-            </div>
+          
+            <div class="form-group">
+                <label class=" control-label">Name:</label>
+                <div> <input class="form-control" type="text" name="patient_name"/> </div>
+              </div>  
 
               <div class="form-group">
                 <label class="control-label">Birthday:</label>
