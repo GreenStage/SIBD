@@ -29,7 +29,7 @@
                 $nrows = $result->rowCount();
 
                 if ($nrows == 0)
-                    echo("<p class=\"alert alert-warning\">There is no registed patient with the name:  {$_SESSION['patient_name']} .</p>");
+                    echo("<p class=\"alert alert-warning\">There is no registed patient with the name:  {$_SESSION['try_name']} .</p>");
 
                 else{
                   echo ("<h3>Select Patient</h3>");

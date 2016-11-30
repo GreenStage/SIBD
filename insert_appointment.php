@@ -39,9 +39,7 @@
     <div class ="center">
       <p class="alert alert-success"> <span class="glyphicon glyphicon-ok"></span> Appointment inserted in database </p>
       <p><a href="patient_appointments.php">Check appointments for this patient</a></p>
-      <?php
-        echo("<p><a href=\"newappointment.php\">Schedule another appointment</a></p>");
-      ?>
+      <p><a href="newappointment.php">Schedule another appointment</a></p>
       <p><a href="session_end.php">Accept new client</a>
     </div>
 </div>

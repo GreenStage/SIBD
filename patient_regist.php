@@ -39,16 +39,18 @@
                         echo("<td>"  . $row['address']. "</td>");
                         echo("</tr>");
                     }
-                    
+
                     echo("</table>");
                 }
                 $connection = null;
             echo("<p><a href=\"insert_patient_data.php\">Register new patient</a></p>");
-            if($_SESSION['patient_id'] != NULL){
+
+            if(!isset($_SESSION['patient_id']) )
                 echo("<p><a href=\"newappointment.php\">Schedule appointment</a></p>");
-            }else{
+
+            else
                 echo("<p><a href=\"insert_patient_name.php\">Go back and select patient</a></p>");
-            }
+
             echo("<a href=\"session_end.php\" class=\" btn btn-danger\">Cancel</a>");
             ?>
         </div>

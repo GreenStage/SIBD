@@ -28,11 +28,13 @@
        <h3 style="min-width:415px">Verify Appointment </h3>
        <p> Speciality:&nbsp<b> <?php echo($_SESSION['specialty']); ?></b></p>
        <p> Doctor:&nbsp <b><?php
+
                   new_connection($connection);
                   $sql = "SELECT name  FROM doctor WHERE doctor_id = :doctor_id";
                   $result =  sql_secure_query($connection, $sql, Array( ":doctor_id" =>  $_SESSION['doctor_id']));
                   $row = $result->fetch();
                   echo($row['name']);
+
                ?></b></p>
        <p> Date: &nbsp <b><?php echo $_SESSION['appointment_date'] . " " . $_SESSION['appointment_day']; ?></b></p>
        <p><a href="insert_patient_data.php">Change information</a></p>

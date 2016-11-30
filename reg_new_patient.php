@@ -15,9 +15,10 @@
         <div class ="center">
 
           <?php
+
             new_connection($connection);
             $connection->beginTransaction();
-            
+
             $result = sql_secure_query($connection, "SELECT max(patient_id) FROM patient");
             $row = $result->fetch();
             $_SESSION['patient_id'] = $row['max(patient_id)'] + 1;
@@ -36,7 +37,7 @@
                  echo("<p><a href=\"insert_patient_data.php\">Redo operation</a></p>");
 
                 $connection->rollback();
-                
+
             }else if(strtotime(date('Y-m-d')) > strtotime(date('Y-m-d',strtotime($_SESSION['appointment_date'])))){
                 echo("<p>Invalid date for appointment, you cant schedule a appointment in a date that already past");
                 echo("<p><a href=\"insert_patient_data.php\">Redo operation</a></p>");

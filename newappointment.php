@@ -26,6 +26,10 @@
         top: 30px;
         right: -30px;
     }
+    select option[disabled] {
+        display: none;
+    }
+
 </style>
 </head>
 <html>
@@ -112,7 +116,7 @@
        }
 
      $(document).ready(function() {
-     $('.hide_show').hide();
+     $('.hide_show').prop('disabled', true);
 
        $('#datePicker2')
            .datepicker({
